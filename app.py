@@ -50,22 +50,43 @@ class AlexNet(nn.Module):
         x = self.classifier(x)
         return x
 
+# Download model from GitHub
 @st.cache_resource
 def download_model():
-    url = 'https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/raw/main/ai_imageclassifier_1.pth'
-    response = requests.get(url)
-    with open('ai_imageclassifier_1.pth', 'wb') as f:
-        f.write(response.content)
-    return 'ai_imageclassifier_1.pth'
-    
-model_path = download_model()
+    try:
+        url = 'https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/raw/main/ai_imageclassifier_1.pth'
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an error for bad status codes
 
+        with open('ai_imageclassifier_1.pth', 'wb') as f:
+            f.write(response.content)
+
+        # Validate the file
+        if os.path.getsize('ai_imageclassifier_1.pth') == 0:
+            raise ValueError("Downloaded file is empty.")
+        
+        return 'ai_imageclassifier_1.pth'
+    except requests.exceptions.RequestException as e:
+        st.error(f"An error occurred while downloading the model: {e}")
+        return None
+    except ValueError as ve:
+        st.error(f"File validation error: {ve}")
+        return None
+
+# Load the model
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = AlexNet()
 model_path = download_model()
-model.load_state_dict(torch.load(model_path, map_location=device))
-model.to(device)
-model.eval()
+if model_path:
+    try:
+        model.load_state_dict(torch.load(model_path, map_location=device))
+        model.to(device)
+        model.eval()
+    except Exception as e:
+        st.error(f"Error loading the model: {e}")
+else:
+    st.error("Model could not be loaded. Please check the download path or internet connection.")
+
 
 # Streamlit app
 st.title("Image Classification with AlexNet")
