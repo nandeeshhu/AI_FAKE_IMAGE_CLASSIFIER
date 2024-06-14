@@ -1,5 +1,4 @@
 gdown
-io
 torch
 torchvision
 numpy
