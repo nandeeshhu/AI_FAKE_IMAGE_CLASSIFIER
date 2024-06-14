@@ -49,9 +49,20 @@ class AlexNet(nn.Module):
         x = self.classifier(x)
         return x
 
+@st.cache_resource
+def download_model():
+    url = 'https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/raw/main/ai_imageclassifier_1.pth'
+    response = requests.get(url)
+    with open('ai_imageclassifier_1.pth', 'wb') as f:
+        f.write(response.content)
+    return 'ai_imageclassifier_1.pth'
+    
+model_path = download_model()
+
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = AlexNet()
-model.load_state_dict(torch.load('https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/ai_imageclassifier_1.pth', map_location=device))
+model_path = download_model()
+model.load_state_dict(torch.load(model_path, map_location=device))
 model.to(device)
 model.eval()
 
