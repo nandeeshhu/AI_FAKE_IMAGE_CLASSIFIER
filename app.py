@@ -55,7 +55,7 @@ class AlexNet(nn.Module):
 @st.cache_resource
 def download_model():
     try:
-        url = 'https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/raw/main/ai_imageclassifier_1.pth'
+        url = 'https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/blob/my-new-branch/ai_imageclassifier_1.pth'
         response = requests.get(url)
         response.raise_for_status()  # Raise an error for bad status codes
 
