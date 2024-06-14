@@ -1,6 +1,5 @@
 gdown
-os
-zipfile
+io
 torch
 torchvision
 numpy
