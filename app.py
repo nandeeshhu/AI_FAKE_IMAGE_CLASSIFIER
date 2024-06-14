@@ -4,6 +4,7 @@ import torch.nn as nn
 from torchvision import transforms
 from PIL import Image
 import io
+import requests
 
 # Define the image transformation
 transform = transforms.Compose([
