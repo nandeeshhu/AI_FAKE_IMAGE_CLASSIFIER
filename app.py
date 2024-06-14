@@ -3,7 +3,6 @@ import torch
 import torch.nn as nn
 from torchvision import transforms
 from PIL import Image
-import io
 import requests
 import os
 
@@ -13,7 +12,7 @@ transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-# Load the pre-trained model
+# Define the model architecture
 class AlexNet(nn.Module):
     def __init__(self, num_classes=1):
         super(AlexNet, self).__init__()
@@ -54,21 +53,17 @@ class AlexNet(nn.Module):
 # Download model from GitHub
 @st.cache_resource
 def download_model():
+    url = 'https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/blob/my-new-branch/ai_imageclassifier_1.pth'
+    local_filename = 'ai_imageclassifier_1.pth'
     try:
-        url = 'https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/blob/my-new-branch/ai_imageclassifier_1.pth'
-        response = requests.get(url)
-        response.raise_for_status()  # Raise an error for bad status codes
-
-        # Save the model file locally
-        with open('ai_imageclassifier_1.pth', 'wb') as f:
-            f.write(response.content)
-
-        return 'ai_imageclassifier_1.pth'
+        with requests.get(url, stream=True) as response:
+            response.raise_for_status()
+            with open(local_filename, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+        return local_filename
     except requests.exceptions.RequestException as e:
         st.error(f"An error occurred while downloading the model: {e}")
-        return None
-    except ValueError as ve:
-        st.error(f"File validation error: {ve}")
         return None
 
 # Load the model
@@ -84,7 +79,6 @@ if model_path:
         st.error(f"Error loading the model: {e}")
 else:
     st.error("Model could not be loaded. Please check the download path or internet connection.")
-
 
 # Streamlit app
 st.title("Image Classification with AlexNet")
@@ -106,10 +100,10 @@ if uploaded_file is not None:
 
     # Convert prediction to label
     predicted_label = 'Real' if prediction >= 0.5 else 'Fake'
-    if(predicted_label == 'Real'):
-        prediction = 100*(prediction)
+    if predicted_label == 'Real':
+        prediction = 100 * prediction
     else:
-        prediction = 100*(1-prediction)
+        prediction = 100 * (1 - prediction)
 
     # Display the image with the predicted label
     st.image(image, caption=f'Predicted Label: {predicted_label} ({prediction:.2f})', use_column_width=True)
@@ -124,7 +118,6 @@ if uploaded_file is not None:
         </div>
     """, unsafe_allow_html=True)
     st.write("**Note:** This model is not 100% accurate and may make mistakes on some unseen instances.")
-
 
 # Sidebar for optional details
 st.sidebar.header("Options")
@@ -152,7 +145,7 @@ st.sidebar.write("Recall: 100%")
 
 # Add dataset information
 st.sidebar.subheader("Dataset Information")
-st.sidebar.write("This model is trained on datasets collected from various domains of living things(including human) images. The datasets were collected through web scraping from Google and include a variety of categories.")
+st.sidebar.write("This model is trained on datasets collected from various domains of living things (including human) images. The datasets were collected through web scraping from Google and include a variety of categories.")
 
 st.sidebar.markdown(f"""
         <div style="font-size: 15px; font-weight: bold; color: #007BFF;">
