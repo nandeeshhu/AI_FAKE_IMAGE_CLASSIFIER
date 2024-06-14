@@ -60,10 +60,6 @@ def download_model():
 
         with open('ai_imageclassifier_1.pth', 'wb') as f:
             f.write(response.content)
-
-        # Validate the file
-        if os.path.getsize('ai_imageclassifier_1.pth') == 0:
-            raise ValueError("Downloaded file is empty.")
         
         return 'ai_imageclassifier_1.pth'
     except requests.exceptions.RequestException as e:
