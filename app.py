@@ -55,9 +55,14 @@ class AlexNet(nn.Module):
 @st.cache_resource
 def download_model():
     try:
-        url = 'https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/blob/my-new-branch/ai_imageclassifier_1.pth'
+        url = 'https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/raw/main/ai_imageclassifier_1.pth'
         response = requests.get(url)
         response.raise_for_status()  # Raise an error for bad status codes
+
+        # Check if the content type is appropriate for a model file
+        content_type = response.headers.get('Content-Type')
+        if 'application/octet-stream' not in content_type:
+            raise ValueError("Downloaded file is not a valid model checkpoint.")
 
         with open('ai_imageclassifier_1.pth', 'wb') as f:
             f.write(response.content)
