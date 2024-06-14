@@ -5,6 +5,7 @@ from torchvision import transforms
 from PIL import Image
 import io
 import requests
+import os
 
 # Define the image transformation
 transform = transforms.Compose([
@@ -54,12 +55,16 @@ class AlexNet(nn.Module):
 @st.cache_resource
 def download_model():
     try:
-        url = 'https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/blob/my-new-branch/ai_imageclassifier_1.pth'
+        url = 'https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/raw/main/ai_imageclassifier_1.pth'
         response = requests.get(url)
         response.raise_for_status()  # Raise an error for bad status codes
 
         with open('ai_imageclassifier_1.pth', 'wb') as f:
             f.write(response.content)
+
+        # Validate the file
+        if os.path.getsize('ai_imageclassifier_1.pth') == 0:
+            raise ValueError("Downloaded file is empty.")
         
         return 'ai_imageclassifier_1.pth'
     except requests.exceptions.RequestException as e:
