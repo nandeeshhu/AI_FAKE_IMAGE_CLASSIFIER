@@ -49,10 +49,9 @@ class AlexNet(nn.Module):
         x = self.classifier(x)
         return x
 
-# Load the model
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = AlexNet()
-model.load_state_dict(torch.load('/content/drive/MyDrive/Project/AI_Image_classifier/ai_imageclassifier_1.pth', map_location=device))
+model.load_state_dict(torch.load('https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/ai_imageclassifier_1.pth', map_location=device))
 model.to(device)
 model.eval()
 
