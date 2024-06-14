@@ -1,0 +1,12 @@
+gdown
+os
+zipfile
+torch
+torchvision
+numpy
+sklearn
+matplotlib
+tqdm
+pandas
+PIL
+torchinfo
