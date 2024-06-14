@@ -80,7 +80,7 @@ st.title("Image Classification with AlexNet")
 
 # Upload image
 uploaded_file = st.file_uploader("Choose an image...", type="jpg", key="nand18")
-
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 if uploaded_file is not None:
     # Convert the file to an image
     image = Image.open(uploaded_file).convert("RGB")
