@@ -2,9 +2,4 @@ gdown
 torch
 torchvision
 numpy
-sklearn
-matplotlib
-tqdm
-pandas
 PIL
-torchinfo
