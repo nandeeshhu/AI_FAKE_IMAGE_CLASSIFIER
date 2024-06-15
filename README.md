@@ -50,3 +50,55 @@ The dataset is split into three parts:
 - **Learning Rate:** 0.01
 - **Batch Size:** 8
 - **Epochs:** 15
+
+### Validation and Testing
+- The model's performance is evaluated on the validation set after each epoch.
+- The final evaluation is conducted on the test set.
+
+## Performance
+
+### Validation Performance
+- **Best Validation Accuracy:** 98.5%
+- **Validation Loss:** 0.05
+
+### Test Performance
+- **Test Accuracy:** 98.3%
+
+
+## Usage
+
+### Prerequisites
+- Python 3.8 or higher
+- PyTorch
+- torchvision
+- PIL
+- numpy
+
+### Installation
+
+1. Clone this repository to your local machine, specifying the branch containing the project files:
+
+    ```bash
+    git clone -b my-new-branch https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER.git
+    cd your-repository
+    ```
+
+2. Install the required dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Run the Streamlit app:
+
+    ```bash
+    streamlit run app.py
+    ```
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any changes.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
