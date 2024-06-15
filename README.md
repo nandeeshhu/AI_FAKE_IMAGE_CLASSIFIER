@@ -1,5 +1,11 @@
 # AI Fake Image Classifier
 
+You can experience our AI Fake Image Classifier in action by visiting our live demo on Streamlit:
+
+**[Try out the AI Fake Image Classifier here!](https://cwux4fgevxebs6axpktnft.streamlit.app/)**
+
+Explore the power of our model as it distinguishes between real and AI-generated images with remarkable accuracy. This interactive demo showcases the culmination of our project, providing an easy-to-use interface for testing and evaluating the classifier. Check it out and see how our AI technology works!
+
 This repository contains code and resources for a deep learning model designed to classify images as either real or fake. The model uses the EfficientNet architecture and is trained on a dataset of real and fake images.
 
 ## Table of Contents
