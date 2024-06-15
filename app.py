@@ -112,7 +112,7 @@ if uploaded_file is not None:
             Prediction Score (Confidence): {prediction:.2f}%
         </div>
     """, unsafe_allow_html=True)
-    st.write("**Note:** This model is not 100% accurate and may make mistakes on some unseen instances.")
+    st.write("**Note:** This model is not 100% accurate and may make mistakes on some unseen instances. Please note that the model is not yet trained on a universal dataset and is still under development. Future updates will continue to improve its reliability.")
 
 # Sidebar for optional details
 st.sidebar.header("Options")
