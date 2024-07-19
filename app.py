@@ -57,13 +57,14 @@ def load_model():
     download_url = f'https://drive.google.com/uc?export=download&id=1ilRnrNdIBynK9KiW0W5Ele5onG9MmBp6'
 
     # Download the model file
-    response = requests.get(download_url)
-    response.raise_for_status()
-    
-    # Save the model to a file
-    model_path = "ai_imageclassifier_1.pth"
-    with open(model_path, 'wb') as f:
-        f.write(response.content)
+
+    response = requests.get(model_url)
+    if response.status_code == 200:
+        model_path = "ai_imageclassifier_1.pth"
+        with open(model_path, 'wb') as f:
+            f.write(response.content)
+    else:
+        raise RuntimeError("Failed to download the model file.")
     
     # Load the model
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
