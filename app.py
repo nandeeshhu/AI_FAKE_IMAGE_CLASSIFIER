@@ -54,11 +54,11 @@ class AlexNet(nn.Module):
 def load_model():
     # Google Drive file ID
     file_id = '1ilRnrNdIBynK9KiW0W5Ele5onG9MmBp6'
-    download_url = f'https://drive.google.com/uc?export=download&id=1ilRnrNdIBynK9KiW0W5Ele5onG9MmBp6'
+    download_url = 'https://drive.google.com/uc?export=download&id=1ilRnrNdIBynK9KiW0W5Ele5onG9MmBp6'
 
     # Download the model file
 
-    response = requests.get(model_url)
+    response = requests.get(download_url)
     if response.status_code == 200:
         model_path = "ai_imageclassifier_1.pth"
         with open(model_path, 'wb') as f:
