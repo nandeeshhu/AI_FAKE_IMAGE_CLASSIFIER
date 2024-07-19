@@ -12,7 +12,7 @@ transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-# Load the pre-trained model
+# Define the AlexNet model
 class AlexNet(nn.Module):
     def __init__(self, num_classes=1):
         super(AlexNet, self).__init__()
@@ -52,12 +52,12 @@ class AlexNet(nn.Module):
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-    # URL to your model file on GitHub
-    #model_url = "https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/raw/my-new-branch/ai_imageclassifier_1.pth"
-    model_url = "https://drive.google.com/file/d/1ilRnrNdIBynK9KiW0W5Ele5onG9MmBp6/view?usp=sharing"
-    
+    # Google Drive file ID
+    file_id = '1ilRnrNdIBynK9KiW0W5Ele5onG9MmBp6'
+    download_url = f'https://drive.google.com/uc?export=download&id={file_id}'
+
     # Download the model file
-    response = requests.get(model_url)
+    response = requests.get(download_url)
     response.raise_for_status()
     
     # Save the model to a file
@@ -141,7 +141,7 @@ st.sidebar.write("Recall: 100%")
 
 # Add dataset information
 st.sidebar.subheader("Dataset Information")
-st.sidebar.write("This model is trained on datasets collected from various domains of living things(including human) images. The datasets were collected through web scraping from Google and include a variety of categories.")
+st.sidebar.write("This model is trained on datasets collected from various domains of living things (including human) images. The datasets were collected through web scraping from Google and include a variety of categories.")
 
 st.sidebar.markdown(f"""
         <div style="font-size: 15px; font-weight: bold; color: #007BFF;">
