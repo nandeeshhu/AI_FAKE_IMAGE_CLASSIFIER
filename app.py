@@ -53,7 +53,8 @@ class AlexNet(nn.Module):
 @st.cache(allow_output_mutation=True)
 def load_model():
     # URL to your model file on GitHub
-    model_url = "https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/raw/my-new-branch/ai_imageclassifier_1.pth"
+    #model_url = "https://github.com/nandeeshhu/AI_FAKE_IMAGE_CLASSIFIER/raw/my-new-branch/ai_imageclassifier_1.pth"
+    model_url = "https://drive.google.com/file/d/1ilRnrNdIBynK9KiW0W5Ele5onG9MmBp6/view?usp=sharing"
     
     # Download the model file
     response = requests.get(model_url)
