@@ -3,8 +3,8 @@ import torch
 import torch.nn as nn
 from torchvision import transforms
 from PIL import Image
-import io
 import requests
+import os
 
 # Define the image transformation
 transform = transforms.Compose([
@@ -50,21 +50,23 @@ class AlexNet(nn.Module):
         x = self.classifier(x)
         return x
 
-@st.cache(allow_output_mutation=True)
+@st.cache_data(allow_output_mutation=True)
 def load_model():
     # Google Drive file ID
     file_id = '1ilRnrNdIBynK9KiW0W5Ele5onG9MmBp6'
-    download_url = 'https://drive.google.com/uc?export=download&id=1ilRnrNdIBynK9KiW0W5Ele5onG9MmBp6'
+    download_url = f'https://drive.google.com/uc?export=download&id={file_id}'
+    model_path = "ai_imageclassifier_1.pth"
 
-    # Download the model file
-
-    response = requests.get(download_url)
-    if response.status_code == 200:
-        model_path = "ai_imageclassifier_1.pth"
-        with open(model_path, 'wb') as f:
-            f.write(response.content)
-    else:
-        raise RuntimeError("Failed to download the model file.")
+    # Check if model file already exists
+    if not os.path.exists(model_path):
+        # Download the model file
+        response = requests.get(download_url, stream=True)
+        if response.status_code == 200:
+            with open(model_path, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+        else:
+            raise RuntimeError("Failed to download the model file.")
     
     # Load the model
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -145,10 +147,10 @@ st.sidebar.subheader("Dataset Information")
 st.sidebar.write("This model is trained on datasets collected from various domains of living things (including human) images. The datasets were collected through web scraping from Google and include a variety of categories.")
 
 st.sidebar.markdown(f"""
-        <div style="font-size: 15px; font-weight: bold; color: #007BFF;">
-            Developed By:
-        </div>
-    """, unsafe_allow_html=True)
+    <div style="font-size: 15px; font-weight: bold; color: #007BFF;">
+        Developed By:
+    </div>
+""", unsafe_allow_html=True)
 
 st.sidebar.write("Nandeesh H U")
 st.sidebar.write("10nandeeshhu@gmail.com")
