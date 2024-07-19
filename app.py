@@ -50,7 +50,7 @@ class AlexNet(nn.Module):
         x = self.classifier(x)
         return x
 
-@st.cache_data(allow_output_mutation=True)
+@st.cache_resource(allow_output_mutation=True)
 def load_model():
     # Google Drive file ID
     file_id = '1ilRnrNdIBynK9KiW0W5Ele5onG9MmBp6'
