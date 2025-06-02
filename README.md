@@ -1,4 +1,4 @@
-# AI_FAKE_IMAGE_CLASSIFIER
+# TruthLens: Deep CNN-Based Discrimination of Real and Fake Web Images
 
 You can experience our AI Fake Image Classifier in action by visiting our live demo on Streamlit:
 
