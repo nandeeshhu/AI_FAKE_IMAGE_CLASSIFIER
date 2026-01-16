@@ -137,11 +137,7 @@ if st.sidebar.checkbox("Show Model Architecture"):
     st.sidebar.subheader("Model Architecture")
     st.sidebar.text(model_summary(model))
 
-# Display model evaluation metrics
-st.sidebar.subheader("Model Evaluation Metrics")
-st.sidebar.write("Accuracy: 99.5%")
-st.sidebar.write("Precision: 99.0%")
-st.sidebar.write("Recall: 100%")
+
 
 # Add dataset information
 st.sidebar.subheader("Dataset Information")
